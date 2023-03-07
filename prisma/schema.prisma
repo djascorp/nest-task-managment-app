@@ -11,50 +11,50 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User{
-  id Int @default(autoincrement()) @id
-  username String @unique
+model User {
+  id       Int       @id @default(autoincrement())
+  username String    @unique
   password String
-  name String?
+  name     String?
   projects Project[]
-  setting Setting?
+  setting  Setting?
 }
 
-model Project{
-  id Int @default(autoincrement()) @id
-  name String 
+model Project {
+  id         Int    @id @default(autoincrement())
+  name       String
   visibility String @default("PUBLIC")
-  user User? @relation(fields: [userId],references: [id])
-  userId Int?
+  user       User?  @relation(fields: [userId], references: [id]) // Createur du projet
+  userId     Int?
 }
 
-model Statustype{
-  id Int @default(autoincrement()) @id
-  name String
+model Statustype {
+  id     Int      @id @default(autoincrement())
+  name   String
   status Status[]
 }
 
-model Setting{
-  id Int @default(autoincrement()) @id
-  user User? @relation(fields: [userId],references: [id]) 
-  userId Int? @unique
+model Setting {
+  id     Int               @id @default(autoincrement())
+  user   User?             @relation(fields: [userId], references: [id])
+  userId Int?              @unique
   status SettingOnStatus[]
 }
 
-model Status{
-  id Int @default(autoincrement()) @id
-  name String
-  type Statustype @relation(fields: [statustypeId],references: [id])
+model Status {
+  id           Int               @id @default(autoincrement())
+  name         String
+  type         Statustype        @relation(fields: [statustypeId], references: [id])
   statustypeId Int
-  settings SettingOnStatus[]
+  settings     SettingOnStatus[]
 }
 
-model SettingOnStatus{
-  status Status @relation(fields: [statusId],references: [id])
-  settings Setting @relation(fields: [settingId],references: [id])
-  statusId Int
-  settingId Int
+model SettingOnStatus {
+  status     Status   @relation(fields: [statusId], references: [id])
+  settings   Setting  @relation(fields: [settingId], references: [id])
+  statusId   Int
+  settingId  Int
   assignedAt DateTime @default(now())
-  @@id([statusId,settingId])
-}
 
+  @@id([statusId, settingId])
+}
