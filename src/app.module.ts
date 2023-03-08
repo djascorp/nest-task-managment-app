@@ -6,6 +6,8 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { PrismaService } from './prisma.service';
 import { StatustypeModule } from './statustype/statustype.module';
 import { StatusModule } from './status/status.module';
+import { UserModule } from './user/user.module';
+import { ProjectModule } from './project/project.module';
 
 
 
@@ -19,6 +21,8 @@ import { StatusModule } from './status/status.module';
     }),
     StatustypeModule,
     StatusModule,
+    UserModule,
+    ProjectModule,
   ],
   controllers: [AppController],
   providers: [AppService,PrismaService],
