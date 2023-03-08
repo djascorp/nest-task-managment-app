@@ -11,50 +11,91 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id       Int       @id @default(autoincrement())
-  username String    @unique
+model User{
+  id Int @default(autoincrement()) @id
+  username String @unique
   password String
-  name     String?
+  name String?
   projects Project[]
-  setting  Setting?
+  tasks Task[]
+  constibutors Contributor[]
+  setting Setting?
+
 }
 
-model Project {
-  id         Int    @id @default(autoincrement())
-  name       String
+model Project{
+  id Int @default(autoincrement()) @id
+  name String 
   visibility String @default("PUBLIC")
-  user       User?  @relation(fields: [userId], references: [id]) // Createur du projet
-  userId     Int?
+  creator User? @relation(fields: [userId],references: [id]) // Createur du projet
+  contributors Contributor[]
+
+  userId Int?
 }
 
-model Statustype {
-  id     Int      @id @default(autoincrement())
-  name   String
+model Contributor{
+  project Project? @relation(fields: [projectId], references: [id])
+  user User? @relation(fields: [userId], references: [id])
+  role String @default("ADMIN")
+
+  projectId Int
+  userId Int
+
+  @@id([projectId,userId])
+}
+
+model Task{
+  id Int @default(autoincrement()) @id
+  label String
+  description String?
+  user User? @relation(fields: [userId],references: [id]) // Createur du projet
+  status TaskOnTypeOnStatus[]
+
+  userId Int?
+}
+
+model TaskOnTypeOnStatus{
+  id Int @default(autoincrement()) @id
+  tasks Task? @relation(fields: [taskId],references: [id])
+  statustypes Statustype? @relation(fields: [statustypeId],references: [id])
+  status Status? @relation(fields: [statusId],references: [id])
+
+  taskId Int
+  statustypeId Int?
+  statusId Int?
+
+  @@unique([taskId,statustypeId,statusId])
+}
+
+model Statustype{
+  id Int @default(autoincrement()) @id
+  name String
   status Status[]
+  projects TaskOnTypeOnStatus[]
 }
 
-model Setting {
-  id     Int               @id @default(autoincrement())
-  user   User?             @relation(fields: [userId], references: [id])
-  userId Int?              @unique
+model Setting{
+  id Int @default(autoincrement()) @id
+  user User? @relation(fields: [userId],references: [id]) 
+  userId Int? @unique
   status SettingOnStatus[]
 }
 
-model Status {
-  id           Int               @id @default(autoincrement())
-  name         String
-  type         Statustype        @relation(fields: [statustypeId], references: [id])
+model Status{
+  id Int @default(autoincrement()) @id
+  name String
+  type Statustype @relation(fields: [statustypeId],references: [id])
   statustypeId Int
-  settings     SettingOnStatus[]
+  settings SettingOnStatus[]
+  projects TaskOnTypeOnStatus[]
 }
 
-model SettingOnStatus {
-  status     Status   @relation(fields: [statusId], references: [id])
-  settings   Setting  @relation(fields: [settingId], references: [id])
-  statusId   Int
-  settingId  Int
+model SettingOnStatus{
+  status Status @relation(fields: [statusId],references: [id])
+  settings Setting @relation(fields: [settingId],references: [id])
+  statusId Int
+  settingId Int
   assignedAt DateTime @default(now())
-
-  @@id([statusId, settingId])
+  @@id([statusId,settingId])
 }
+
