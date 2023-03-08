@@ -5,6 +5,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { PrismaService } from './prisma.service';
 import { StatustypeModule } from './statustype/statustype.module';
+import { StatusModule } from './status/status.module';
 
 
 
@@ -17,6 +18,7 @@ import { StatustypeModule } from './statustype/statustype.module';
       typePaths: ['./**/*.graphql']
     }),
     StatustypeModule,
+    StatusModule,
   ],
   controllers: [AppController],
   providers: [AppService,PrismaService],
