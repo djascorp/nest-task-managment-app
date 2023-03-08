@@ -1,15 +1,22 @@
 type Project {
-  # Example field (placeholder)
-  exampleField: Int
+  id: Int
+  name: String!
+  visibility: String
+  creator : User,
+  userId: Int
+  
 }
 
 input CreateProjectInput {
-  # Example field (placeholder)
-  exampleField: Int
+  name: String!
+  visibility: String
+  userId: Int
 }
 
 input UpdateProjectInput {
   id: Int!
+  name: String!
+  visibility: String
 }
 
 type Query {

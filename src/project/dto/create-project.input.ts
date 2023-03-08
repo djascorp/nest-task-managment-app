@@ -1,1 +1,5 @@
-export class CreateProjectInput {}
+export class CreateProjectInput {
+    id: number;
+    name: string;
+    visibility: string|null|undefined;
+}

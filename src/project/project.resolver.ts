@@ -12,7 +12,7 @@ export class ProjectResolver {
     return this.projectService.create(createProjectInput);
   }
 
-  @Query('project')
+  @Query('projects')
   findAll() {
     return this.projectService.findAll();
   }
