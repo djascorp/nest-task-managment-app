@@ -1,0 +1,31 @@
+type Contributor {
+  projectId: Int!
+  userId: Int!
+  role: String
+
+  project: Project
+  user: User
+}
+
+input CreateContributorInput {
+  projectId: Int!
+  userId: Int!
+  role: String
+}
+
+input UpdateContributorInput {
+  projectId: Int!
+  userId: Int!
+  role: String
+}
+
+type Query {
+  contributors: [Contributor]!
+  contributor(id: Int!): Contributor
+}
+
+type Mutation {
+  createContributor(createContributorInput: CreateContributorInput!): Contributor!
+  updateContributor(updateContributorInput: UpdateContributorInput!): Contributor!
+  removeContributor(id: Int!): Contributor
+}

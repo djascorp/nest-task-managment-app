@@ -1,0 +1,30 @@
+type Status {
+  # Example field (placeholder)
+  id: Int
+  name: String
+  type: Statustype 
+  statustypeId: Int
+}
+
+input CreateStatusInput {
+  # Example field (placeholder)
+  name: String!
+  statustypeId: Int!
+}
+
+input UpdateStatusInput {
+  id: Int!
+  name: String
+  statustypeId: Int
+}
+
+type Query {
+  statuses: [Status]!
+  status(id: Int!): Status
+}
+
+type Mutation {
+  createStatus(createStatusInput: CreateStatusInput!): Status!
+  updateStatus(updateStatusInput: UpdateStatusInput!): Status!
+  removeStatus(id: Int!): Status
+}

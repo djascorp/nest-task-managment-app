@@ -1,0 +1,25 @@
+type Statustype {
+  # Example field (placeholder)
+  id: Int
+  name: String
+}
+
+# input CreateStatustypeInput {
+#   # Example field (placeholder)
+#   exampleField: Int
+# }
+
+# input UpdateStatustypeInput {
+#   id: Int!
+# }
+
+type Query {
+  statustypes: [Statustype]!
+  statustype(id: Int!): Statustype
+}
+
+type Mutation {
+  createStatustype(name: String!): Statustype!
+  updateStatustype(id: Int!,name: String!): Statustype!
+  removeStatustype(id: Int!): Statustype
+}

@@ -1,0 +1,31 @@
+type Project {
+  id: Int
+  name: String!
+  visibility: String
+  creator : User,
+  userId: Int
+  
+}
+
+input CreateProjectInput {
+  name: String!
+  visibility: String
+  userId: Int
+}
+
+input UpdateProjectInput {
+  id: Int!
+  name: String!
+  visibility: String
+}
+
+type Query {
+  projects: [Project]!
+  project(id: Int!): Project
+}
+
+type Mutation {
+  createProject(createProjectInput: CreateProjectInput!): Project!
+  updateProject(updateProjectInput: UpdateProjectInput!): Project!
+  removeProject(id: Int!): Project
+}
