@@ -8,6 +8,7 @@ import { StatustypeModule } from './statustype/statustype.module';
 import { StatusModule } from './status/status.module';
 import { UserModule } from './user/user.module';
 import { ProjectModule } from './project/project.module';
+import { ContributorModule } from './contributor/contributor.module';
 
 
 
@@ -23,6 +24,7 @@ import { ProjectModule } from './project/project.module';
     StatusModule,
     UserModule,
     ProjectModule,
+    ContributorModule,
   ],
   controllers: [AppController],
   providers: [AppService,PrismaService],
