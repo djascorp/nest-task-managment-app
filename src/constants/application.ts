@@ -1,0 +1,1 @@
+export const JWT_CONSTANT = "TASKM CONSTANT APP";

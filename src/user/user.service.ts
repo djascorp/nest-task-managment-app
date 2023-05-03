@@ -23,6 +23,14 @@ export class UserService {
     })
   }
 
+  findOneByUsername(username : string) {
+    return this.prisma.user.findUnique({
+      where: {
+        username
+      }
+    })
+  }
+
   update(id: number, updateUserInput: UpdateUserInput) {
     return this.prisma.user.update({
       where: {id},
